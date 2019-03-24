@@ -1,10 +1,11 @@
 package com.example.wenda.controller;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * @program: wenda
@@ -22,12 +23,21 @@ public class IndesController {
         return "Hello world!";
     }
 
-    @RequestMapping(path = {"/profile/{groupId}/{userId}"})
+    @RequestMapping(path = {"/profile/{groupId}/{userId}"},method = {RequestMethod.POST,RequestMethod.GET})
     @ResponseBody
     public String profile(@PathVariable("userId") int userId,
-                          @PathVariable("groupId") String groupId,
+                           @PathVariable("groupId") String groupId,
                           @RequestParam("type") int type,
-                          @RequestParam("key") String key){
+                          @RequestParam(value = "key",required = false) String key){
         return String.format("Profile Page of %s/%d, t:%d/key:%s",groupId,userId,type,key);
+    }
+
+    @RequestMapping(path = {"/vm"})
+    public String template(Model model){
+
+        model.addAttribute("value1","huabuxiu");
+        List<String> colors = Arrays.asList(new String[]{"RED", "GREEN", "BLUE"});
+        model.addAttribute("colors",colors);
+        return "home";
     }
 }
