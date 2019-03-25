@@ -26,7 +26,7 @@ import java.util.List;
  * @create: 2019-03-23 14:43
  **/
 
-@Controller
+//@Controller
 public class IndexController {
 
     private static final Logger logger =  LoggerFactory.getLogger(IndexController.class);
