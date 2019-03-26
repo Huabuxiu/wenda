@@ -18,7 +18,7 @@ public interface UserDAO {
 
 
     @Select({"select ",SELECT_FILEDS," from ",TABLE_NAME," where id = #{id}"})
-    User SelectUserById(int id);
+    User selectUserById(int id);
 
     @Update({"update ",TABLE_NAME," set password = #{password} where id =#{id}"})
     void  updatePassword(User user);
