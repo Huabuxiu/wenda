@@ -52,4 +52,22 @@ public class LoginController {
         return "login";
     }
 
+    @RequestMapping(path = {"/login/"}, method = {RequestMethod.POST})
+    public String login(Model model,
+                      @RequestParam("username") String username,
+                      @RequestParam("password") String password){
+
+        try {
+            Map<String,Object> map = userService.login(username,password);
+            if (map.containsKey("msg")){
+                model.addAttribute("msg",map.get("msg"));
+                return "login";
+            }
+            return  "redirect:/";
+        }catch (Exception e)
+        {
+            logger.error("注册异常"+e.getMessage());
+            return "login";
+        }
+    }
  }

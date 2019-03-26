@@ -64,4 +64,32 @@ public class UserService {
 
         return map;
     }
+
+    public Map<String,Object> login(String username,String password){
+        Map<String,Object> map= new HashMap<>();
+
+        if (StringUtils.isBlank(username)){
+            map.put("msg","用户名不能为空");
+            return  map;
+        }
+
+        if (StringUtils.isBlank(password)){
+            map.put("msg","密码不能为空");
+            return  map;
+        }
+
+        User user = userDAO.selectUserByName(username);
+        if (user == null){
+            map.put("msg","用户不存在");
+            return map;
+        }
+
+        //验证密码
+
+        if (!WendaUtil.MD5(password+user.getSalt()).equals(user.getPassword())){
+            map.put("msg","密码不正确");
+            return map;
+        }
+        return map;
+    }
 }
