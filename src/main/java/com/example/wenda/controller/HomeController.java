@@ -57,7 +57,6 @@ public class HomeController {
     public String user(Model model,
                        @PathVariable("userId") int userId){
         model.addAttribute("vos",getQuestions(userId,0,5));
-//        测试git
         return "index";
     }
 
