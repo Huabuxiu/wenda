@@ -1,6 +1,8 @@
 package com.example.wenda.service;
 
+import com.example.wenda.dao.LoginTicketDAO;
 import com.example.wenda.dao.UserDAO;
+import com.example.wenda.model.LoginTicket;
 import com.example.wenda.model.User;
 import com.example.wenda.util.WendaUtil;
 import org.apache.commons.lang.StringUtils;
@@ -9,10 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * @program: wenda
@@ -26,6 +25,9 @@ public class UserService {
 
     @Autowired
     private UserDAO userDAO;
+
+    @Autowired
+    private LoginTicketDAO loginTicketDAO;
 
     public User getUser(int id ){
         return userDAO.selectUserById(id);
@@ -61,6 +63,9 @@ public class UserService {
         user.setPassword(WendaUtil.MD5(password+user.getSalt()));
             //插入数据库
         userDAO.addUser(user);
+        //注册完设置session
+        String ticket = addLoginTicket(user.getId());
+        map.put("ticket",ticket);
 
         return map;
     }
@@ -90,6 +95,27 @@ public class UserService {
             map.put("msg","密码不正确");
             return map;
         }
+
+        String ticket = addLoginTicket(user.getId());
+        map.put("ticket",ticket);
         return map;
+    }
+
+
+
+    private String addLoginTicket(int userId){
+        LoginTicket ticket = new LoginTicket();
+        ticket.setUserId(userId);
+        Date date = new Date();
+        date.setTime(date.getTime()+1000*3600*24);
+        ticket.setExpired(date);
+        ticket.setStatus(0);
+        ticket.setTicket(UUID.randomUUID().toString().replaceAll("-",""));
+        loginTicketDAO.addTicket(ticket);
+        return ticket.getTicket();
+    }
+
+    public void logout(String ticket){
+        loginTicketDAO.updateStatus(ticket,1);
     }
 }
