@@ -21,12 +21,14 @@ public class LogAspect {
     @Before("execution(* com.example.wenda.controller.*Controller.*(..))")
     public void beforeMethod(JoinPoint joinPoint) {
         StringBuilder sb = new StringBuilder();
+        sb.append(" method "+joinPoint.getSignature()+": ");
         for (Object arg : joinPoint.getArgs()) {
             if(arg !=null){
                 sb.append("arg:" + arg.toString() + "|");
             }
+
         }
-        logger.info("before method:" + sb.toString());
+        logger.info("before method: " + sb.toString());
     }
 
     @After("execution(* com.example.wenda.controller.IndexController.*(..))")
