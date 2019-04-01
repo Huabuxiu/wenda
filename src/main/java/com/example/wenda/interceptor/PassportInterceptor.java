@@ -17,7 +17,7 @@ import java.util.Date;
 
 /**
  * @program: wenda
- * @description:
+ * @description:    未登录拦截器验证
  * @author: Huabuxiu
  * @create: 2019-03-26 20:55
  **/
