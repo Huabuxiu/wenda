@@ -43,7 +43,7 @@ public class LoginController {
                 Cookie cookie = new Cookie("ticket",map.get("ticket").toString());
                 cookie.setPath("/");
                 if (rememberme) {
-                    cookie.setMaxAge(3600*24*5);
+                    cookie.setMaxAge(3600*24*6);
                 }
                 response.addCookie(cookie);
                 if (StringUtils.isNotBlank(next)) {
@@ -61,6 +61,14 @@ public class LoginController {
         }
     }
 
+
+    /**
+     * @Description: 登录
+     * @Param:
+     * @return:
+     * @Author: Huabuxiu
+     * @Date: 2019/3/26
+     */
     @RequestMapping(path = {"/reglogin"}, method = {RequestMethod.GET})
     public String reg(Model model,@RequestParam(value = "next", required = false) String next){
         model.addAttribute("next",next);
@@ -68,13 +76,7 @@ public class LoginController {
     }
 
 
-/**
-* @Description: 登录
-* @Param:
-* @return:
-* @Author: Huabuxiu
-* @Date: 2019/3/26
-*/
+
 
     @RequestMapping(path = {"/login/"}, method = {RequestMethod.POST})
     public String login(Model model,

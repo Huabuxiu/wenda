@@ -29,4 +29,8 @@ public class QuestionService {
         return  questionDAO.selectQuestionByid(id);
     }
 
+    //更新回答不显示
+    public void updateCommentCount(int id, int count){
+        questionDAO.updateCommentCount(id,count);
+    }
 }

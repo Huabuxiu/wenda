@@ -26,9 +26,9 @@ public class LogAspect {
             if(arg !=null){
                 sb.append("arg:" + arg.toString() + "|");
             }
-
         }
-        logger.info("before method: " + sb.toString());
+
+        logger.info("before method: " + sb.toString().replace("com.example.wenda.controller.",""));
     }
 
     @After("execution(* com.example.wenda.controller.IndexController.*(..))")

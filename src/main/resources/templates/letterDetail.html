@@ -6,9 +6,12 @@
         <ul class="letter-chatlist">
             #foreach($message in $messages)
             <li id="msg-item-4009580">
+
+                <a class="author-link"  target="_blank">$!message.userName</a>
                 <a class="list-head">
                     <img alt="头像" src="$!message.headUrl">
                 </a>
+
                 <div class="tooltip fade right in">
                     <div class="tooltip-arrow"></div>
                     <div class="tooltip-inner letter-chat clearfix">

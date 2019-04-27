@@ -28,5 +28,13 @@ public class CommentService {
         return commentDAO.getCommentByEntity(entityId,entityType);
     }
 
+    public int getCommentCount(int entityId, int entityType) {
+        return commentDAO.getCommentCount(entityId, entityType);
+    }
+
+    //更改成状态1为不可见
+    public void deleteComment(int entityId, int entityType) {
+        commentDAO.updateStatus(entityId, entityType, 1);
+    }
 
 }

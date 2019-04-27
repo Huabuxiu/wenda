@@ -26,6 +26,7 @@ public class WendaUtil {
 
     public static String getJSONString(int code, String msg) {
         JSONObject json = new JSONObject();
+        //设置返回消息的状态code
         json.put("code", code);
         json.put("msg", msg);
         return json.toJSONString();
