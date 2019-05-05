@@ -4,4 +4,10 @@
         <scope>application</scope>
         <class>org.apache.velocity.tools.generic.DateTool</class>
     </tool>
+
+    <tool>
+        <key>NumberTool</key>
+        <scope>application</scope>
+        <class>org.apache.velocity.tools.generic.NumberTool</class>
+    </tool>
 </toolbox>

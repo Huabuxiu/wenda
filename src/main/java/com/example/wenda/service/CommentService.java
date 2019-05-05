@@ -32,6 +32,10 @@ public class CommentService {
         return commentDAO.getCommentCount(entityId, entityType);
     }
 
+    public Comment getCommentById(int id){
+        return commentDAO.getCommentById(id);
+    }
+
     //更改成状态1为不可见
     public void deleteComment(int entityId, int entityType) {
         commentDAO.updateStatus(entityId, entityType, 1);

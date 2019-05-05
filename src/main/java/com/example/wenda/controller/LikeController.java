@@ -1,5 +1,8 @@
 package com.example.wenda.controller;
 
+import com.example.wenda.async.EventModel;
+import com.example.wenda.async.EventProducer;
+import com.example.wenda.async.EventType;
 import com.example.wenda.model.Comment;
 import com.example.wenda.model.EntityType;
 import com.example.wenda.model.HostHolder;
@@ -12,6 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @program: wenda
@@ -27,7 +33,12 @@ public class LikeController {
     @Autowired
     HostHolder hostHolder;
 
+    @Autowired
+    CommentService commentService;
 
+
+    @Autowired
+    EventProducer eventProducer;
 
     @RequestMapping(path = {"/like"}, method = {RequestMethod.POST})
     @ResponseBody
@@ -36,6 +47,14 @@ public class LikeController {
             return WendaUtil.getJSONString(999);
         }
 
+        //发送事件到队列里
+        Comment comment = commentService.getCommentById(commentId);
+        Map<String,String> ext = new HashMap<>();
+        ext.put("questionId", String.valueOf(comment.getEntityId()));
+        eventProducer.fireEvent(new EventModel(EventType.LIKE)
+                .setActorId(hostHolder.getUser().getId()).setEntityId(commentId)
+                .setEntityType(EntityType.ENTITY_COMMENT).setEntityOwnerId(comment.getUserId())
+                .setExts(ext));
 
 
         long likeCount = likeService.like(hostHolder.getUser().getId(), EntityType.ENTITY_COMMENT, commentId);

@@ -12,10 +12,10 @@ import java.util.List;
 public interface CommentDAO {
 
     String TABLE_NAME = "comment ";
-    String INSERT_FILEDS = " user_id, content, created_date, entity_id, entity_type, status";
-    String SELECT_FILEDS = " id, "+INSERT_FILEDS;
+    String INSERT_FIELDS = " user_id, content, created_date, entity_id, entity_type, status";
+    String SELECT_FIELDS= " id, "+INSERT_FIELDS;
 
-    @Insert({"insert into ",TABLE_NAME," (",INSERT_FILEDS,") values",
+    @Insert({"insert into ",TABLE_NAME," (",INSERT_FIELDS,") values",
             " (#{userId}, #{content}, #{createdDate}, #{entityId}, #{entityType},#{status})"})
     int addComment(Comment comment);
 
@@ -23,7 +23,10 @@ public interface CommentDAO {
     void updateStatus(@Param("entityId") int entityId, @Param("entityType") int entityType, @Param("status") int status);
 
 
-    @Select({"select ",SELECT_FILEDS," from ",TABLE_NAME,
+    @Select({"select ", SELECT_FIELDS, " from ", TABLE_NAME, " where id=#{id}"})
+    Comment getCommentById(int id);
+
+    @Select({"select ",SELECT_FIELDS," from ",TABLE_NAME,
                 " where entity_id = #{entityId} and entity_type=#{entityType}"})
     List<Comment> getCommentByEntity(@Param("entityId") int entityId,
                                          @Param("entityType")int entityType);
