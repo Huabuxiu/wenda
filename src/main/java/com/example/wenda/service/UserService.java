@@ -34,7 +34,7 @@ public class UserService {
     }
 
     public Map<String,String> register(String username,String password){
-        Map<String,String> map = new HashMap<>();
+        Map<String,String> map = new HashMap<String,String>();
 
         if (StringUtils.isBlank(username)){
             map.put("msg","用户名不能为空");
@@ -71,7 +71,7 @@ public class UserService {
     }
 
     public Map<String,Object> login(String username,String password){
-        Map<String,Object> map= new HashMap<>();
+        Map<String,Object> map= new HashMap<String,Object>();
 
         if (StringUtils.isBlank(username)){
             map.put("msg","用户名不能为空");
