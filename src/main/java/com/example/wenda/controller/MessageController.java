@@ -25,7 +25,7 @@ import java.util.List;
 
 /**
  * @program: wenda
- * @description:
+ * @description: 私信
  * @author: Huabuxiu
  * @create: 2019-04-02 09:24
  **/
