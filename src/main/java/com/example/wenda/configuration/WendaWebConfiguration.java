@@ -30,12 +30,6 @@ public class WendaWebConfiguration extends WebMvcConfigurerAdapter {
         super.addInterceptors(registry);
     }
 
-    @Override
-    public void addCorsMappings(CorsRegistry registry){
-        CorsRegistration corsRegistration = registry.addMapping("/followerUser");
-        corsRegistration.allowedMethods("GET", "POST");
-    }
-
 
 
 }
