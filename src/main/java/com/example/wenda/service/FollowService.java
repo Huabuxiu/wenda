@@ -103,12 +103,12 @@ public class FollowService {
 
     public long getFollowerCount(int entityType,int entityId){
         String followerKey = RedisKeyUtil.getFollowerKey(entityType,entityId);
-        return jedisAdapter.scard(followerKey);
+        return jedisAdapter.zcard(followerKey);
     }
 
     public long getFolloweeCount(int userId,int entityId){
         String followerKey = RedisKeyUtil.getFolloweeKey(userId,entityId);
-        return jedisAdapter.scard(followerKey);
+        return jedisAdapter.zcard(followerKey);
     }
 
 

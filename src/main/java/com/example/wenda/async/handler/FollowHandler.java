@@ -10,6 +10,7 @@ import com.example.wenda.service.MessageService;
 import com.example.wenda.service.UserService;
 import com.example.wenda.util.WendaUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 import java.util.Date;
@@ -21,6 +22,7 @@ import java.util.List;
  * @author: Huabuxiu
  * @create: 2019-06-19 15:54
  **/
+@Component
 public class FollowHandler  implements EventHandler {
 
    public final String address = "http://127.0.0.1:8080";
@@ -38,6 +40,9 @@ public class FollowHandler  implements EventHandler {
         message.setFromId(WendaUtil.SYSTEM_USERID);
         message.setToId(model.getEntityOwnerId());
         message.setCreatedDate(new Date());
+        message.setConversationId(message.getFromId() < message.getToId() ?
+                String.format("%d_%d", message.getFromId(), message.getToId()) :
+                String.format("%d_%d", message.getToId(), message.getFromId()));
         User user = userService.getUser(model.getActorId());
 
         if (model.getEntityType() == EntityType.ENTITY_QUESTION){

@@ -4,9 +4,9 @@ import com.example.wenda.interceptor.LoginRequredInterceptor;
 import com.example.wenda.interceptor.PassportInterceptor;
 import com.example.wenda.model.HostHolder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.config.annotation.*;
 
 /**
  * @program: wenda
@@ -29,6 +29,13 @@ public class WendaWebConfiguration extends WebMvcConfigurerAdapter {
         registry.addInterceptor(loginRequredInterceptor).addPathPatterns("/user/*");
         super.addInterceptors(registry);
     }
+
+    @Override
+    public void addCorsMappings(CorsRegistry registry){
+        CorsRegistration corsRegistration = registry.addMapping("/followerUser");
+        corsRegistration.allowedMethods("GET", "POST");
+    }
+
 
 
 }
