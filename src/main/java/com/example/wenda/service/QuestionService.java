@@ -22,9 +22,11 @@ public class QuestionService {
         return questionDAO.selectLatestQuestions(userId, offset, limit);
     }
 
+    //评论
     public int addQuestion(Question question){
         return questionDAO.addQuestion(question) > 0 ? question.getId(): 0;
     }
+
     public Question getById(int id){
         return  questionDAO.selectQuestionByid(id);
     }

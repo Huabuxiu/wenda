@@ -18,14 +18,14 @@ import java.util.List;
 
 /**
  * @program: wenda
- * @description:
+ * @description:  关注事件的处理
  * @author: Huabuxiu
  * @create: 2019-06-19 15:54
  **/
 @Component
 public class FollowHandler  implements EventHandler {
 
-   public final String address = "http://127.0.0.1:8080";
+    public final String address = "http://127.0.0.1:8080";
 
    @Autowired
    UserService userService;

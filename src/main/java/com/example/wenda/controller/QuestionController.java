@@ -44,6 +44,13 @@ public class QuestionController {
     LikeService likeService;
 
 
+/** 
+* @Description: 增加问题和评论
+* @Param:
+* @return:
+* @Author: Huabuxiu 
+* @Date: 2019/6/21 
+*/
 
     @RequestMapping(value = "/question/add", method = {RequestMethod.POST})
     @ResponseBody
@@ -69,7 +76,15 @@ public class QuestionController {
         return WendaUtil.getJSONString(1, "失败");
     }
 
-
+    
+    
+/** 
+* @Description: 问题主页 
+* @Param:  
+* @return:  
+* @Author: Huabuxiu 
+* @Date: 2019/6/21 
+*/ 
     @RequestMapping(path = {"/question/{qid}"})
     public String detail(Model model, @PathVariable("qid") int qid){
         Question question = questionService.getById(qid);
